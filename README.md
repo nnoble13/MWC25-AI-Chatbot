@@ -68,7 +68,7 @@ Once the app starts, open your browser at **`http://localhost:8501`** to interac
 
 ## Guides for Intermediate & Beginner Users
 
-If you're new to **Conda, Streamlit, or API integrations**, refer to the **guides/** folder for step-by-step instructions:
+If you're new to **Conda, Streamlit, or API integrations**, refer to the **guides/** folder for step-by-step instructions.
 
 ## Project Structure
 
