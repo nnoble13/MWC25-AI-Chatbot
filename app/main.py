@@ -1,5 +1,6 @@
 import streamlit as st  # Web app framework
 import os  # File path operations
+os.system("pip install -r requirements.txt")
 import requests  # Hugging Face API requests
 from langchain_community.document_loaders import PyPDFLoader # PDF Loader for extracting text
 from langchain.text_splitter import CharacterTextSplitter  # Splits text into chunks
