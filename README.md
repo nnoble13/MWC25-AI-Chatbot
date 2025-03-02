@@ -20,10 +20,12 @@ The **AI+ Chatbot** is an **intelligent Q&A assistant** that enhances Generative
 1. **Local Development (`local.py`)** - Uses **OpenAI's GPT API** for response generation. Ideal for **testing and local use**.
 2. **Streamlit Deployment (`main.py`)** - Uses a **free Hugging Face API** to provide responses. This version is hosted on **Streamlit Cloud**.
 
+<div align="center">
 | Version  | API Used   | Hosting |
 |----------|------------|------------|
 | `local.py`  | OpenAI GPT | Localhost (`streamlit run local.py`) |
 | `main.py`   | Hugging Face API | Streamlit Cloud |
+</div>
 
 ## Prerequisites
 
@@ -85,10 +87,6 @@ api_key = st.secrets["api_keys"]["openai"]
 ```sh
 streamlit run main.py
 ```
-
-## Guides for Intermediate & Beginner Users
-
-If you're new to **Conda, Streamlit, or API integrations**, refer to the **guides/** folder for step-by-step instructions.
 
 ## Project Structure
 
