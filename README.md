@@ -13,58 +13,78 @@ This project was developed for the **Mobile World Congress 2025 (MWC 2025) Works
 ### What is the AI+ Chatbot?  
 App: 👉 [MWC25 AI+ Chatbot](https://mwc25-ai-chatbot.streamlit.app/)
 
-The **AI+ Chatbot** is an **intelligent Q&A assistant** that enhances Generative AI (GenAI) models with **Retrieval-Augmented Generation (RAG)**. Unlike standard LLMs that rely solely on pre-trained data, **this chatbot retrieves real-time information from documents, databases, and APIs to provide more precise and reliable answers**.
+The **AI+ Chatbot** is an **intelligent Q&A assistant** that enhances Generative AI (GenAI) models with **Retrieval-Augmented Generation (RAG)**.
+
+## Deployment Options
+
+1. **Local Development (`local.py`)** - Uses **OpenAI's GPT API** for response generation. Ideal for **testing and local use**.
+2. **Streamlit Deployment (`main.py`)** - Uses a **free Hugging Face API** to provide responses. This version is hosted on **Streamlit Cloud**.
+
+| Version  | API Used   | Hosting |
+|----------|------------|------------|
+| `local.py`  | OpenAI GPT | Localhost (`streamlit run local.py`) |
+| `main.py`   | Hugging Face API | Streamlit Cloud |
 
 ## Prerequisites
 
 Before setting up the project, ensure you have the following installed:
 
 - **Python (3.9 or later)**  
-- **An IDE**: We recommend **VS Code, PyCharm, or Jupyter Notebook**  
+- **An IDE**: VS Code, PyCharm, or Jupyter Notebook
 - **[Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)** (for environment management)  
 - **An API Key** from one of the following providers:
-  - **[OpenAI API Key](https://platform.openai.com/signup/)**
-  - **[Hugging Face API Key](https://huggingface.co/join)** (for custom models)
+  - **[OpenAI API Key](https://platform.openai.com/signup/)** (for local development)
+  - **[Hugging Face API Key](https://huggingface.co/settings/tokens)** (for deployed version)
 
 ## Installation & Setup
 
-If you are comfortable with **Conda and Streamlit**, follow these steps:
-
 ### 1️⃣ Clone the Repository
 ```sh
-git clone https://github.com/your-username/rag-assistant.git
-cd rag-assistant
+git clone https://github.com/your-username/MWC25-AI-Chatbot.git
+cd MWC25-AI-Chatbot
 ```
-
 ### 2️⃣ Create & Activate the Conda Environment
 ```sh
-conda create --name mwc25 python=3.9
-conda activate mwc25
+conda create --name MWC25 python=3.9
+conda activate MWC25
 pip install -r requirements.txt  # Install dependencies
 ```
 
-### 3️⃣ Store Your API Key (Required)
-To store your API key securely, create a **`.streamlit/secrets.toml`** file in the project directory:
+### 3️⃣ Store Your API Key (Required)  
+
+
+### **For Local Development**  
+Use a **`.env`** file to store your API key and load it using `dotenv`:  
 
 ```sh
-mkdir -p .streamlit
-touch .streamlit/secrets.toml
+echo API_KEY=your-api-key > .env
+```  
+```python
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+api_key = os.getenv("API_KEY")
 ```
 
-Then, open the file and add your API key:
-
+### **For Deployment on Streamlit**  
+In your Streamlit project settings, go to **Secrets** and add:  
 ```toml
 [api_keys]
 openai = "your-api-key"
 huggingface = "your-api-key"
 ```
 
+And in your Python script:  
+```python
+import streamlit as st
+
+api_key = st.secrets["api_keys"]["openai"]
+```
 ### 4️⃣ Run the Application
 ```sh
 streamlit run main.py
 ```
-
-Once the app starts, open your browser at **`http://localhost:8501`** to interact with the AI assistant.
 
 ## Guides for Intermediate & Beginner Users
 
