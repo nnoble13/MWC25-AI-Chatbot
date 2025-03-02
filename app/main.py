@@ -1,10 +1,10 @@
 import streamlit as st  # Web app framework
 import os  # File path operations
 import requests  # Hugging Face API requests
-from langchain.document_loaders import PyPDFLoader  # PDF Loader for extracting text
+from langchain_community.document_loaders import PyPDFLoader # PDF Loader for extracting text
 from langchain.text_splitter import CharacterTextSplitter  # Splits text into chunks
-from langchain.embeddings import OpenAIEmbeddings  # You may need to replace this later
-from langchain.vectorstores import Chroma  # Chroma Vector Store for retrieval
+from langchain_openai import OpenAIEmbeddings  # You may need to replace this later
+from langchain_community.vectorstores import Chroma  # Chroma Vector Store for retrieval
 import chromadb  # ChromaDB for vector storage
 from dotenv import load_dotenv  # Load environment variables
 
