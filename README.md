@@ -11,9 +11,9 @@ This project was developed for the **Mobile World Congress 2025 (MWC 2025) Works
 [MWC 2025](https://www.mwcbarcelona.com/) is one of the **world’s most influential technology events**, bringing together **industry leaders, developers, and innovators** to explore **the future of AI, digital transformation, and connectivity**. In 2025, AI is moving from research to large-scale **real-world implementation** across industries. 
 
 ### What is the AI+ Chatbot?  
-The **AI+ Chatbot** is an **intelligent Q&A assistant** that enhances Generative AI (GenAI) models with **Retrieval-Augmented Generation (RAG)**. Unlike standard LLMs that rely solely on pre-trained data, **this chatbot retrieves real-time information from documents, databases, and APIs to provide more precise and reliable answers**.
+App: 👉 [MWC25 AI+ Chatbot](https://mwc25-ai-chatbot.streamlit.app/)
 
-This project demonstrates how **AI Agents are evolving from simple conversational models to business-ready assistants**, capable of dynamically retrieving and synthesizing knowledge.
+The **AI+ Chatbot** is an **intelligent Q&A assistant** that enhances Generative AI (GenAI) models with **Retrieval-Augmented Generation (RAG)**. Unlike standard LLMs that rely solely on pre-trained data, **this chatbot retrieves real-time information from documents, databases, and APIs to provide more precise and reliable answers**.
 
 ## Prerequisites
 
@@ -70,16 +70,6 @@ Once the app starts, open your browser at **`http://localhost:8501`** to interac
 
 If you're new to **Conda, Streamlit, or API integrations**, refer to the **guides/** folder for step-by-step instructions:
 
-**📂 `guides/`**
-- `01_setup_conda_env.ipynb` → How to set up a Conda environment.
-- `02_streamlit_basics.ipynb` → Introduction to Streamlit.
-- `03_obtaining_openai_api_key.md` → How to get an OpenAI API key.
-- `04_huggingface_api_setup.md` → Setting up a Hugging Face API key.
-
-To access the guides, navigate to the `guides/` folder and open the relevant file.
-
----
-
 ## Project Structure
 
 ```sh
@@ -102,7 +92,7 @@ To access the guides, navigate to the `guides/` folder and open the relevant fil
 │── environment.yml               # YAML file for Conda environment setup
 ```
 
-## 🔒 License (AGPL v3)
+## License (AGPL v3)
 
 GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
