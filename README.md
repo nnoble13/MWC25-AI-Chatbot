@@ -11,21 +11,8 @@ This project was developed for the **Mobile World Congress 2025 (MWC 2025) Works
 [MWC 2025](https://www.mwcbarcelona.com/) is one of the **world’s most influential technology events**, bringing together **industry leaders, developers, and innovators** to explore **the future of AI, digital transformation, and connectivity**. In 2025, AI is moving from research to large-scale **real-world implementation** across industries. 
 
 ### What is the AI+ Chatbot?  
-App: 👉 [MWC25 AI+ Chatbot](https://mwc25-ai-chatbot.streamlit.app/)
 
 The **AI+ Chatbot** is an **intelligent Q&A assistant** that enhances Generative AI (GenAI) models with **Retrieval-Augmented Generation (RAG)**.
-
-## Deployment Options
-
-1. **Local Development (`local.py`)** - Uses **OpenAI's GPT API** for response generation. Ideal for **testing and local use**.
-2. **Streamlit Deployment (`main.py`)** - Uses a **free Hugging Face API** to provide responses. This version is hosted on **Streamlit Cloud**.
-
-<div align="center">
-| Version  | API Used   | Hosting |
-|----------|------------|------------|
-| `local.py`  | OpenAI GPT | Localhost (`streamlit run local.py`) |
-| `main.py`   | Hugging Face API | Streamlit Cloud |
-</div>
 
 ## Prerequisites
 
@@ -69,7 +56,7 @@ load_dotenv()
 api_key = os.getenv("API_KEY")
 ```
 
-### **For Deployment on Streamlit**  
+### **For Deployment on Streamlit Cloud**  
 In your Streamlit project settings, go to **Secrets** and add:  
 ```toml
 [api_keys]
@@ -93,7 +80,7 @@ streamlit run main.py
 ```sh
 📂 MWC25-AI-Chatbot
 │── 📂 app/                     # Main Streamlit app files
-│   ├── main.py                 # Streamlit app entry point
+│   ├── main.py                 # App
 │   ├── config.toml             # Non-sensitive configuration settings
 │   ├── 📂 chroma_db/           # Vector database files
 │── 📂 data/                     # Retrieval data
@@ -103,6 +90,7 @@ streamlit run main.py
 │   ├── logo.jpg                 
 │── 📂 guides/                   # Self-guided materials for beginners
 │   ├── Fundamentals.ipynb  
+│   ├── main.py                 # Same version but with HuggingFace
 │── .gitignore                   
 │── LICENSE                      # Open-source license (AGPL v3)
 │── README.md                   
