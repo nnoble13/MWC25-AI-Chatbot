@@ -1,17 +1,18 @@
 import streamlit as st  # Web app framework
 import os  # File path operations
-os.system("pip install -r requirements.txt")
-import requests  # Hugging Face API requests
-from langchain_community.document_loaders import PyPDFLoader # PDF Loader for extracting text
+import openai  # OpenAI API for generating responses
+from langchain.document_loaders import PyPDFLoader  # PDF Loader for extracting text
 from langchain.text_splitter import CharacterTextSplitter  # Splits text into chunks
-from langchain_openai import OpenAIEmbeddings  # You may need to replace this later
-from langchain_community.vectorstores import Chroma  # Chroma Vector Store for retrieval
+from langchain.embeddings import OpenAIEmbeddings  # Embedding model for vector search
+from langchain.vectorstores import Chroma  # Chroma Vector Store for retrieval
 import chromadb  # ChromaDB for vector storage
 from dotenv import load_dotenv  # Load environment variables
 
 # --- Load API keys ---
 load_dotenv()
-hf_api_key = st.secrets["HF_API_KEY"]  # Use Hugging Face API key
+api_key = os.getenv("OPENAI_API_KEY") # to run it locally
+# api_key = st.secrets["OPENAI_API_KEY"] # to run it on streamlit
+openai.api_key = api_key
 
 # --- Streamlit UI Configuration ---
 st.set_page_config(page_title="MWC25 AI Chatbot", page_icon="🤖", layout="wide")
@@ -57,7 +58,7 @@ if user_question:
             pages = loader.load_and_split()
             text_splitter = CharacterTextSplitter(chunk_size=10000, chunk_overlap=200)
             chunks = text_splitter.split_documents(pages)
-            embeddings = OpenAIEmbeddings(model="text-embedding-3-large")  # Consider replacing this
+            embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
             client = chromadb.PersistentClient(path="./chroma_db")
             db = Chroma.from_documents(chunks, embeddings, persist_directory="./chroma_db", client=client)
             return db
@@ -67,7 +68,7 @@ if user_question:
 
         if retrieved_docs:
             source_info = "\n".join(
-                [f"📖 **Source:** {os.path.basename(doc.metadata.get('source', 'Unknown'))}, Page: {doc.metadata.get('page', 'N/A')}" for doc in retrieved_docs]
+            [f"📖 **Source:** {os.path.basename(doc.metadata.get('source', 'Unknown'))}, Page: {doc.metadata.get('page', 'N/A')}" for doc in retrieved_docs]
             )
             context_text = retrieved_docs[0].page_content
         else:
@@ -97,21 +98,20 @@ if user_question:
         {source_info}
         """
 
-        # --- Call Hugging Face API ---
-        def query_huggingface(text):
-            api_url = "https://api-inference.huggingface.co/models/bigscience/bloom"  # Change model if needed
-            headers = {"Authorization": f"Bearer {hf_api_key}"}
-            payload = {"inputs": text, "parameters": {"max_length": 400}}
+        # --- Call OpenAI GPT ---
+        client = openai.OpenAI()
+        model_params = {
+            'model': 'gpt-4o',
+            'temperature': 0.7,
+            'max_tokens': 4000,
+            'top_p': 0.9,
+            'frequency_penalty': 0.5,
+            'presence_penalty': 0.6
+        }
 
-            response = requests.post(api_url, headers=headers, json=payload)
-            return response.json()
-
-        response = query_huggingface(prompt)
-
-        if isinstance(response, list) and "generated_text" in response[0]:
-            answer = response[0]['generated_text']
-        else:
-            answer = "⚠️ Error: Unable to fetch response from Hugging Face API."
+        messages = [{'role': 'user', 'content': prompt}]
+        completion = client.chat.completions.create(messages=messages, **model_params, timeout=120)
+        answer = completion.choices[0].message.content
 
     # --- Display AI Response ---
     st.session_state["messages"].append({"role": "assistant", "content": answer})
